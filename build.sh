@@ -1,5 +1,5 @@
 mkdir ./build
 cd ./build
-cmake -DBUILD_TESTING=$1 ../
+cmake -DPATCH_VERSION=$1 -DBUILD_TESTING=$2 ../
 cmake --build .
-cmake --build . --target $2
+cmake --build . --target $3

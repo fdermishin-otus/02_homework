@@ -1,5 +1,9 @@
 cmake_minimum_required(VERSION 3.23)
-project(ip_filter)
+
+if (NOT DEFINED PATCH_VERSION)
+    set(PATCH_VERSION "1")
+endif ()
+project(ip_filter VERSION 0.0.${PATCH_VERSION})
 
 add_executable(${PROJECT_NAME} src/main.cpp src/split.cpp)
 target_compile_options(${PROJECT_NAME} PUBLIC -O3)
