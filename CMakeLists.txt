@@ -26,6 +26,11 @@ if (BUILD_TESTING)
     gtest_discover_tests(${PROJECT_NAME}_test)
 endif ()
 
+install(
+        TARGETS ${PROJECT_NAME}
+        RUNTIME DESTINATION bin
+)
+
 if (APPLE)
     message("Packing DragNDrop for MacOS")
     set(CPACK_GENERATOR DragNDrop)
