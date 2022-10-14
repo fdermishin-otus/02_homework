@@ -1,5 +1,5 @@
 mkdir ./build
 cd ./build
-cmake ../
+cmake -DBUILD_TESTING=$1 ../
 cmake --build .
-cmake --build . --target package
+cmake --build . --target $2
