@@ -1,0 +1,43 @@
+name: build-project
+run-name: Build is triggered by ${{ github.actor }}
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+jobs:
+  build-ubuntu:
+    name: Build on Ubuntu
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: ./build.sh ${{ github.run_number }}
+      - name: Test
+        run: ( cd build && ctest )
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+          tag_name: ${{ github.run_number }}
+          name: Release ${{ github.run_number }}
+  build-macos:
+    name: Build on MacOS
+    runs-on: macos-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Build
+        run: ./build.sh ${{ github.run_number }}
+      - name: Test
+        run: ( cd build && ctest )
+      - name: Release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v1
+        with:
+          files: release/*
+          tag_name: ${{ github.run_number }}
+          name: Release ${{ github.run_number }}
